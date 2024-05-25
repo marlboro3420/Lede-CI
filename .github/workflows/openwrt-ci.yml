@@ -44,11 +44,21 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v3
 
+      - name: Clone LEDE source
+        run: |
+          git clone https://github.com/coolsnowwolf/lede
+          cd lede
+
       - name: Update feeds
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+
+      - name: Copy config file
+        run: |
+          cp ../.config lede/.config
+          cd lede
 
       - name: Generate configuration file
         run: make defconfig
