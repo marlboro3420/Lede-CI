@@ -47,18 +47,19 @@ jobs:
       - name: Clone LEDE source
         run: |
           git clone https://github.com/coolsnowwolf/lede
+          
+      - name: Copy config file
+        run: |
+          pwd
+          cp .config lede/.config
           cd lede
+          ls
 
       - name: Update feeds
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./lede/feeds.conf.default
           ./lede/scripts/feeds update -a
           ./lede/scripts/feeds install -a
-
-      - name: Copy config file
-        run: |
-          cp ../.config lede/.config
-          cd lede
 
       - name: Generate configuration file
         run: make defconfig
