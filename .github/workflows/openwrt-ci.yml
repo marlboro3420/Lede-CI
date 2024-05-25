@@ -51,18 +51,21 @@ jobs:
       - name: Copy config file
         run: |
           pwd
-          cp .config lede/.config
+          cp .config /lede
           cd lede
           ls
 
       - name: Update feeds
         run: |
+          pwd
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./lede/feeds.conf.default
           ./lede/scripts/feeds update -a
           ./lede/scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+          pwd
+          make defconfig
 
       - name: Download packages
         run: make download -j16
