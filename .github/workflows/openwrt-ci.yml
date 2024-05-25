@@ -51,9 +51,9 @@ jobs:
       - name: Copy config file
         run: |
           pwd
-          cp .config /lede
+          cp .config lede/.config
           cd lede
-          ls
+          ls -a
 
       - name: Update feeds
         run: |
@@ -67,6 +67,7 @@ jobs:
           pwd
           cd lede
           pwd
+          ls -a
           make defconfig
 
       - name: Download packages
